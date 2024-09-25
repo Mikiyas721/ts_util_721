@@ -1,0 +1,31 @@
+{
+  "name": "ts-util-721",
+  "version": "0.0.1",
+  "description": "Functional programming and Dependency injection for Typescript",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "watch": "tsc -w",
+    "dev": "nodemon dist/main.js",
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "tsup": "tsup"
+  },
+  "author": "Mikiyas721@gmail.com",
+  "license": "ISC",
+  "repository": "https://github.com/Mikiyas721/ts_util_721.git",
+  "dependencies": {
+    "tsup": "^8.2.4"
+  },
+  "devDependencies": {
+  },
+  "engines": {
+    "node": "^20.10.0"
+  },
+  "keywords": [
+    "typescript",
+    "functional programming",
+	"dependency injection"
+  ]
+}
