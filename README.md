@@ -22,7 +22,7 @@
       
       ```
       import axios from "axios";
-      import {Either} from "telegraf-721";
+      import {Either} from "ts-util-721";
       export class AxiosDatasource{
             ...
         async get(): Promise<Either<RestResponseFailure, RestResponse>> {
@@ -57,7 +57,7 @@
    The provider class is a singleton on its own. It has a *getInstance* static function for instantiation, 
    but you won't have to use it because it is instantiated internally. You just need to import that.
    ```
-   import {provider} from "telegraf-721"
+   import {provider} from "ts-util-721"
    
    provider.registerSingleton(
         "unique indentifier",
@@ -73,7 +73,7 @@
    The second usage is better for instances that may not be needed during the lifecycle of the application or are not need during instantiation.
    You can fetch the instance using the *get* function.
    ```
-   import {provider} from "telegraf-721"
+   import {provider} from "ts-util-721"
    
    const axiosDatasource = provider.get<AxiosDatasource>("unique indentifier")
    ```
