@@ -1,5 +1,5 @@
 export abstract class Failure {
-    protected constructor(protected message: string | undefined = undefined) {
+    constructor(protected message: string | undefined = undefined) {
     }
 
     abstract get messageLocaleKey(): string
