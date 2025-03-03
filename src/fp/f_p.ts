@@ -11,11 +11,11 @@ export class Either<L, R> {
         }
     }
 
-    static left<L, R>(l: L): Either<L, R> {
+    static left<L, R>(l: NonNullable<L>): Either<L, R> {
         return new Either<L, R>(l, undefined);
     }
 
-    static right<L, R>(r: R): Either<L, R> {
+    static right<L, R>(r: NonNullable<R>): Either<L, R> {
         return new Either<L, R>(undefined, r);
     }
 
@@ -77,7 +77,7 @@ export class Option<S> {
         return new Option<S>(undefined)
     }
 
-    static some<S>(s: S): Option<S> {
+    static some<S>(s: NonNullable<S>): Option<S> {
         return new Option<S>(s)
     }
 

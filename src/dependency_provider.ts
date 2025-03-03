@@ -26,7 +26,7 @@ export class DependencyProvider {
         return DependencyProvider.instance;
     }
 
-    private getOr<T>(instanceName: string): Dependency<T> | undefined {
+    getOr<T>(instanceName: string): Dependency<T> | undefined {
         return this.registry[instanceName];
     }
 
