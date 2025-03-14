@@ -1,7 +1,11 @@
 export class Either<L, R> {
     private constructor(
         private readonly leftValue?: L,
-        private readonly rightValue?: R
+        private readonly rightValue?: R,
+        private readonly defaultHandlers?: {
+            left?: (l: L, extras?: { [key: string]: any }) => any,
+            right?: (r: R, extras?: { [key: string]: any }) => any
+        }
     ) {
         if (
             (leftValue === undefined && rightValue === undefined) ||
@@ -11,12 +15,18 @@ export class Either<L, R> {
         }
     }
 
-    static left<L, R>(l: NonNullable<L>): Either<L, R> {
-        return new Either<L, R>(l, undefined);
+    static left<L = any, R = any>(
+        l: NonNullable<L>,
+        defaultLeftHandler?: (l: L, extras?: { [key: string]: any }) => any
+    ): Either<L, R> {
+        return new Either<L, R>(l, undefined, {left: defaultLeftHandler});
     }
 
-    static right<L, R>(r: NonNullable<R>): Either<L, R> {
-        return new Either<L, R>(undefined, r);
+    static right<L = any, R = any>(
+        r: NonNullable<R>,
+        defaultRightHandler?: (r: R, extras?: { [key: string]: any }) => any
+    ): Either<L, R> {
+        return new Either<L, R>(undefined, r, {right: defaultRightHandler});
     }
 
     fold<A, B>(ifLeft: (l: L) => A, ifRight: (r: R) => B): A | B {
@@ -24,6 +34,36 @@ export class Either<L, R> {
             return ifLeft(this.leftValue!);
         } else {
             return ifRight(this.rightValue!);
+        }
+    }
+
+    foldLeft<A>(
+        ifLeft: (l: L) => A,
+        extras?: { [key: string]: any }
+    ): A {
+        if (this.isLeft) {
+            return ifLeft(this.leftValue!);
+        } else {
+            if (this.defaultHandlers?.right) {
+                return this.defaultHandlers.right(this.rightValue!, extras);
+            } else {
+                throw new Error("Unable to foldLeft since default right handler is missing.");
+            }
+        }
+    }
+
+    foldRight<B>(
+        ifRight: (r: R) => B,
+        extras?: { [key: string]: any }
+    ): B {
+        if (this.isRight) {
+            return ifRight(this.rightValue!);
+        } else {
+            if (this.defaultHandlers?.left) {
+                return this.defaultHandlers.left(this.leftValue!, extras);
+            } else {
+                throw new Error("Unable to foldRight since default left handler is missing.");
+            }
         }
     }
 
