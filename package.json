@@ -1,6 +1,6 @@
 {
   "name": "ts-util-721",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Functional programming and Dependency injection for Typescript",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
