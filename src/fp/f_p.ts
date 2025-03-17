@@ -1,11 +1,11 @@
 export class Either<L, R> {
     private constructor(
         private readonly leftValue?: L,
-        private readonly rightValue?: R,
+        private readonly rightValue?: R/*,
         private readonly defaultHandlers?: {
             left?: (l: L, extras?: { [key: string]: any }) => any,
             right?: (r: R, extras?: { [key: string]: any }) => any
-        }
+        }*/
     ) {
         if (
             (leftValue === undefined && rightValue === undefined) ||
@@ -16,15 +16,15 @@ export class Either<L, R> {
     }
 
     static left<L = any, R = any>(
-        l: NonNullable<L>,
-        defaultLeftHandler?: (l: L, extras?: { [key: string]: any }) => any
+        l: NonNullable<L>/*,
+        defaultLeftHandler?: (l: L, extras?: { [key: string]: any }) => any*/
     ): Either<L, R> {
         return new Either<L, R>(l, undefined, {left: defaultLeftHandler});
     }
 
     static right<L = any, R = any>(
-        r: NonNullable<R>,
-        defaultRightHandler?: (r: R, extras?: { [key: string]: any }) => any
+        r: NonNullable<R>/*,
+        defaultRightHandler?: (r: R, extras?: { [key: string]: any }) => any*/
     ): Either<L, R> {
         return new Either<L, R>(undefined, r, {right: defaultRightHandler});
     }
@@ -37,7 +37,7 @@ export class Either<L, R> {
         }
     }
 
-    foldLeft<A>(
+    /*foldLeft<A>(
         ifLeft: (l: L) => A,
         extras?: { [key: string]: any }
     ): A {
@@ -65,7 +65,7 @@ export class Either<L, R> {
                 throw new Error("Unable to foldRight since default left handler is missing.");
             }
         }
-    }
+    }*/
 
     getOrElse<B>(ifLeft: (l: L) => B): B | R {
         if (this.isLeft)
