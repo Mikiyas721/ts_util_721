@@ -19,14 +19,14 @@ export class Either<L, R> {
         l: NonNullable<L>/*,
         defaultLeftHandler?: (l: L, extras?: { [key: string]: any }) => any*/
     ): Either<L, R> {
-        return new Either<L, R>(l, undefined, {left: defaultLeftHandler});
+        return new Either<L, R>(l, undefined/*, {left: defaultLeftHandler}*/);
     }
 
     static right<L = any, R = any>(
         r: NonNullable<R>/*,
         defaultRightHandler?: (r: R, extras?: { [key: string]: any }) => any*/
     ): Either<L, R> {
-        return new Either<L, R>(undefined, r, {right: defaultRightHandler});
+        return new Either<L, R>(undefined, r/*, {right: defaultRightHandler}*/);
     }
 
     fold<A, B>(ifLeft: (l: L) => A, ifRight: (r: R) => B): A | B {
